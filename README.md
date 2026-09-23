@@ -16,9 +16,11 @@ From `note.md`, verbatim:
 
 > the problem of breast cancer treatment in Mali are: **distance, money, and time**. How to fix these ?
 
-Late presentation and long travel to scarce diagnostic centres mean patients arrive
-advanced, costs of repeated trips bankrupt families, and referrals sit in queues while
-cancers progress. This project builds the software layer that attacks all three:
+Patients often consult late: symptoms go unnoticed for too long, and long travel to
+scarce diagnostic centres means many arrive with advanced disease. The repeated trips
+that a scan, a result and a referral require push families into poverty, and patients
+wait in queues while their cancers progress. This project builds the software layer
+that attacks all three:
 
 | Barrier | What this platform does |
 |---|---|
