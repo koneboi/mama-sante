@@ -1,0 +1,39 @@
+{
+  "num_classes": 3,
+  "data_dir": "data/processed/busi_class",
+  "classes": ["benign", "malignant", "normal"],
+  "holdout": "15% seeded split (seed=0)",
+  "artifacts": {
+    "torch_fp32_onnx": {
+      "path": "models/imaging.onnx",
+      "val_acc": 0.9401709401709402,
+      "size_mb": 6.1,
+      "use": "server default (/classify)"
+    },
+    "torch_fp16_onnx": {
+      "path": "models/imaging_fp16.onnx",
+      "size_mb": 3.1,
+      "use": "lightweight GPU/NPU inference, parity-verified vs fp32"
+    },
+    "keras_fp32_tflite": {
+      "path": "models/imaging_fp32.tflite",
+      "val_acc": 0.872,
+      "size_mb": 3.7,
+      "use": "mobile reference (float)"
+    },
+    "keras_int8_tflite": {
+      "path": "models/imaging_int8.tflite",
+      "val_acc": 0.803,
+      "size_mb": 1.2,
+      "input": "int8, scale=1/127.5 ([-1,1]), zp=-1",
+      "output": "int8",
+      "use": "on-device phone deployment (full-integer)"
+    }
+  },
+  "notes": [
+    "Keras MobileNetV3Small must use include_preprocessing=False: to_model_input already scales to [-1,1]; double preprocessing collapses inputs to a near-constant range (val collapse to majority class).",
+    "ORT static int8 PTQ on the torch model collapses (val ~0.34) due to conv1 activation outliers (max ~200 vs p99 ~6) on OOD ultrasound; production fix is QAT (see scripts/train_qat_imaging.py, trains to ~0.915) or TFLite path above.",
+    "Torch eager QAT int8 cannot export to ONNX (quantized::batch_norm2d unsupported at all opsets); BN-folded retrain diverges on this dataset.",
+    "TFLite int8 validation requires BUILTIN_REF resolver in this env (XNNPACK int8 delegate fails to init)."
+  ]
+}

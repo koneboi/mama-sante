@@ -1,0 +1,25 @@
+# data — keep raw dumps out of version control
+data/raw/*
+data/processed/*
+data/images/*
+!data/raw/.gitkeep
+!data/geo/.gitkeep
+!data/geo/centers.csv
+data/geo/*.graphml
+
+# models
+models/*.pt
+models/*.onnx
+models/*.pkl
+models/*.tflite
+models/*.h5
+models/tflite/
+
+# env / tooling
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# osmnx download cache
+cache/

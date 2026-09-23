@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#0b3d2e">
+<title>Mama-Santé — Breast care triage</title>
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header>
+  <h1>Mama-Santé</h1>
+  <p>Breast cancer screening &amp; referral triage</p>
+</header>
+
+<main>
+  <form id="triage-form" autocomplete="off">
+    <fieldset>
+      <legend>Patient information</legend>
+
+      <label>Age <input name="age" type="number" min="18" max="85" value="45" required></label>
+
+      <label class="check"><input name="family_history" type="checkbox" value="1"> Family history of breast cancer</label>
+      <label class="check"><input name="palpability" type="checkbox" value="1"> Palpable lump / self-detected mass</label>
+      <label class="check"><input name="prior_biopsy" type="checkbox" value="1"> Prior biopsy</label>
+
+      <label>Symptom duration (months)
+        <input name="symptom_duration_months" type="number" min="0" max="48" value="0" step="0.5">
+      </label>
+
+      <div class="row">
+        <div>
+          <span class="opt-label">Area</span>
+          <label class="radio"><input type="radio" name="rural_flag" value="1" checked> Rural</label>
+          <label class="radio"><input type="radio" name="rural_flag" value="0"> Urban</label>
+        </div>
+        <div>
+          <span class="opt-label">Wealth</span>
+          <select name="wealth_quartile">
+            <option value="1">Lowest</option>
+            <option value="2">Low</option>
+            <option value="3">Mid</option>
+            <option value="4">High</option>
+          </select>
+        </div>
+      </div>
+
+      <label>Region
+        <select name="region">
+          <option>Bamako</option><option>Gao</option><option>Kayes</option>
+          <option>Kidal</option><option>Koulikoro</option><option>Koutiala</option>
+          <option>Mopti</option><option>Nioro du Sahel</option><option>San</option>
+          <option>Segou</option><option>Sikasso</option><option>Timbuktu</option>
+        </select>
+      </label>
+
+      <label>Ultrasound image (optional)
+        <input name="image" type="file" accept="image/*" capture="environment">
+      </label>
+    </fieldset>
+
+    <button type="submit" id="submit">Screen patient</button>
+  </form>
+
+  <section id="banner" aria-live="polite"></section>
+
+  <section id="results" hidden>
+    <div class="card">
+      <div class="card-head">
+        <span>Triage</span>
+        <span id="triage-label" class="badge">…</span>
+      </div>
+      <div class="gauge"><div id="risk-bar"></div></div>
+      <p class="risk-line">Risk score <strong id="risk-value">0</strong> / 1</p>
+      <p id="explain"></p>
+    </div>
+
+    <div class="card" id="center-card" hidden>
+      <div class="card-head"><span>Recommended facility</span><span id="center-level" class="badge subtle">…</span></div>
+      <h2 id="center-name">…</h2>
+      <p id="center-meta"></p>
+      <p id="center-cost"></p>
+      <a id="center-map" href="#" target="_blank" rel="noopener">View on map ↗</a>
+    </div>
+  </section>
+</main>
+
+<footer>Prototype — not a medical device. Screening aid for health posts.</footer>
+<script src="/static/app.js"></script>
+</body>
+</html>

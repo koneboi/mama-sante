@@ -1,0 +1,13 @@
+center_id,name,lat,lon,level,equipment,capacity,base_cost
+1,Bamako,12.6392,-8.0029,hospital,"us,mammo,biopsy,surgery",147,80000
+2,Sikasso,11.316,-5.666,regional,"us,mammo,biopsy",47,40000
+3,Segou,13.4317,-6.2157,regional,"us,mammo,biopsy",42,40000
+4,Koulikoro,12.8627,-7.5599,district,"us,biopsy",145,15000
+5,Kayes,14.4465,-11.4415,regional,"us,mammo,biopsy",125,40000
+6,Mopti,14.4874,-4.1835,district,"us,biopsy",176,15000
+7,San,13.3034,-4.8999,district,"us,biopsy",153,15000
+8,Koutiala,12.3917,-5.4644,district,"us,biopsy",182,15000
+9,Gao,16.2704,-0.0447,district,"us,biopsy",139,15000
+10,Timbuktu,16.7735,-3.0071,post,us,171,5000
+11,Nioro du Sahel,15.2329,-9.5933,post,us,50,5000
+12,Kidal,18.4411,1.4077,post,us,115,5000
