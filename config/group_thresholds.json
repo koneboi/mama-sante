@@ -1,0 +1,29 @@
+{
+  "base": 0.5,
+  "target_tpr": 0.25,
+  "bounds": [
+    0.02,
+    0.95
+  ],
+  "region": {
+    "Bamako": 0.25,
+    "Gao": 0.73,
+    "Kayes": 0.56,
+    "Kidal": 0.65,
+    "Koulikoro": 0.37,
+    "Koutiala": 0.33,
+    "Mopti": 0.5,
+    "Nioro du Sahel": 0.57,
+    "San": 0.42,
+    "Segou": 0.5,
+    "Sikasso": 0.57,
+    "Timbuktu": 0.5
+  },
+  "wealth_quartile": {
+    "1": 0.46,
+    "2": 0.48,
+    "3": 0.54,
+    "4": 0.65
+  },
+  "strategy": "group"
+}

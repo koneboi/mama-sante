@@ -8,6 +8,9 @@ const riskBar = document.getElementById("risk-bar");
 const riskValue = document.getElementById("risk-value");
 const triageLabel = document.getElementById("triage-label");
 const explain = document.getElementById("explain");
+const thresholdValue = document.getElementById("threshold-value");
+const thresholdNote = document.getElementById("threshold-note");
+const factors = document.getElementById("factors");
 const centerCard = document.getElementById("center-card");
 const centerLevel = document.getElementById("center-level");
 const centerName = document.getElementById("center-name");
@@ -63,12 +66,17 @@ form.addEventListener("submit", async (e) => {
   };
 
   const file = form.elements.image.files[0];
+  let suspicious = false;
   if (file) {
     try {
       const fd = new FormData();
       fd.append("image", file);
       const up = await fetch("/classify", { method: "POST", body: fd });
       const img = await up.json();
+      if (img.suspicious) {
+        suspicious = true;
+        note("Image rejected by the quality gate (not a readable ultrasound), using risk-only triage", "warn");
+      }
       if (img.class) payload.image_result = { confidence: img.confidence, above_floor: img.above_floor };
       if (img.error) note("Image analysis failed, using risk-only triage", "warn");
     } catch (err) {
@@ -86,9 +94,31 @@ form.addEventListener("submit", async (e) => {
   const score = Math.round(r.risk_score * 100);
   riskValue.textContent = score;
   riskBar.style.width = score + "%";
-  explain.textContent = payload.image_result
-    ? "Combined risk model + ultrasound image analysis."
-    : "Risk-only referral (no image submitted).";
+  explain.textContent = suspicious
+    ? "Risk-only referral — uploaded image was rejected by the quality gate."
+    : (payload.image_result ? "Combined risk model + ultrasound image analysis." : "Risk-only referral (no image submitted).");
+
+  thresholdValue.textContent = r.threshold_strategy === "group"
+    ? r.risk_threshold.toFixed(2)
+    : r.risk_threshold.toFixed(3);
+  thresholdNote.textContent = r.threshold_strategy === "group"
+    ? "(group-adjusted for region & wealth)"
+    : "";
+  thresholdValue.closest("p").hidden = false;
+
+  factors.innerHTML = "";
+  if (r.factors && r.factors.length) {
+    const head = document.createElement("li");
+    head.className = "factors-head";
+    head.textContent = "Main drivers of this risk score";
+    factors.appendChild(head);
+    for (const f of r.factors.slice(0, 4)) {
+      const li = document.createElement("li");
+      const sign = f.contribution >= 0 ? "+" : "−";
+      li.textContent = `${f.feature.replace(/_/g, " ")} · ${sign}${Math.abs(f.contribution).toFixed(3)}`;
+      factors.appendChild(li);
+    }
+  }
 
   if (r.center) {
     const c = r.center;

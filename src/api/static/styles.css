@@ -125,6 +125,23 @@ button#submit:disabled { opacity: .6; }
 #center-name { margin: 4px 0; font-size: 1.1rem; }
 a#center-map { color: var(--brand); font-weight: 600; text-decoration: none; }
 
+.subtle { color: var(--muted); font-weight: 400; font-size: .85rem; }
+ul.factors {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  background: #f0f5f2;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: .9rem;
+}
+ul.factors li { margin: 3px 0; color: var(--muted); }
+ul.factors li.factors-head {
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+
 footer {
   text-align: center;
   color: var(--muted);

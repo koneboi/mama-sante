@@ -17,6 +17,11 @@ risk:
   target_col: label
   model: gradient_boosting
   risk_threshold: 0.5
+  # fairness by design: "group" uses per-region/per-wealth thresholds calibrated
+  # by scripts/fairness.py; falls back to the pooled threshold if the table is absent
+  threshold_strategy: group
+  group_thresholds_path: config/group_thresholds.json
+  threshold_bounds: [0.02, 0.95]
 
 imaging:
   backbone: mobilenet_v3_small
@@ -24,6 +29,8 @@ imaging:
   num_classes: 3          # benign, suspicious, malignant
   modality: ultrasound
   confidence_floor: 0.65
+  # cheap structural gate before inference: rejects non-ultrasound/low-quality input
+  ood_guard: true
 
 triage:
   levels:
