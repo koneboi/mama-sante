@@ -206,11 +206,6 @@ quartile under-detected). These are flagged as pre-deployment blockers: threshol
 calibration per region and re-weighting of under-represented groups are required before
 any real deployment.
 
-### Step 12 — Publication
-Repo pushed to GitHub; project added to the Projects menu of
-[koneboi.github.io](https://koneboi.github.io/projects.html) with a detailed technical
-page.
-
 ---
 
 ## 6. Key findings (most important — read this before changing anything)
