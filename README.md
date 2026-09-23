@@ -116,10 +116,20 @@ python scripts/fairness.py
 python -m src.api.app
 ```
 
-Data note: BUSI was taken from the HuggingFace mirror
-[`gymprathap/Breast-Cancer-Ultrasound-Images-Dataset`](https://huggingface.co/datasets/gymprathap/Breast-Cancer-Ultrasound-Images-Dataset)
-(Kaggle's direct download was too slow); masks were stripped — including the
-`*_mask_N.png` variants — leaving **780 images: 437 benign / 210 malignant / 133 normal**.
+**Data & image sources**
+
+| Data / images | Used for | Kind | Attribution / license | Access |
+|---|---|---|---|---|
+| **BUSI** breast-ultrasound images, 780 clean (benign 437 / malignant 210 / normal 133) | imaging classification | real medical images, public dataset | Al-Dhabyani, Gomaa, Khaled & Fahmy — *Data in Brief* 28 (2020) 104863; collected at Baheya Hospital, Cairo; open for research | [Hugging Face `gymprathap/Breast-Cancer-Ultrasound-Images-Dataset`](https://huggingface.co/datasets/gymprathap/Breast-Cancer-Ultrasound-Images-Dataset) · Kaggle copy |
+| **Synthetic patient cohort** — 2,000 records, 7 risk features + outcomes | risk model, triage, fairness audit | generated (simulated — *not* real patients) | — | `scripts/generate_synthetic_data.py` |
+| **Malian referral centres** — 12 facilities (level, equipment, cost, load) | routing targets | curated facility table | compiled from public health-infrastructure sources | `data/geo/centers.csv` |
+| **OpenStreetMap Bamako** — road network (30,232 nodes / 88,257 edges) | travel-time routing graph | crowd-sourced geographic data | © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), ODbL 1.0 | via OSMnx — `scripts/fetch_network.py` |
+
+**BUSI citation** — W. Al-Dhabyani, M. Gomaa, H. Khaled, A. Fahmy. *"Dataset of breast
+ultrasound images."* **Data in Brief** 28 (2020) 104863. `doi:10.1016/j.dib.2019.104863`.
+
+The BUSI mirror was preferred because Kaggle's direct download was too slow; masks were
+stripped — including the `*_mask_N.png` variants — leaving the 780 clean images above.
 
 ---
 
